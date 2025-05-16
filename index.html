@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAPA ANGGA - Media Pembelajaran Akar Pangkat Tiga</title>
+    <style>
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        :root {
+            --background: #FCD9DF;
+            --foreground: #1F2937;
+            --card: #FFFFFF;
+            --card-foreground: #1F2937;
+            --primary: #9F879F;
+            --primary-foreground: #FFFFFF;
+            --secondary: #F9ADB7;
+            --secondary-foreground: #FFFFFF;
+            --accent: #CFE0F8;
+            --border: #D1D5DB;
+            --input: #D1D5DB;
+            --ring: #1F2937;
+            --radius: 0.5rem;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        /* Card styles */
+        .card {
+            width: 100%;
+            max-width: 28rem;
+            background-color: var(--card);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: var(--secondary);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: var(--radius);
+            border-top-right-radius: var(--radius);
+        }
+        
+        .card-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-foreground);
+        }
+        
+        .card-subtitle {
+            font-size: 0.875rem;
+            font-weight: normal;
+        }
+        
+        .card-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        /* Button styles */
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.125rem;
+            height: 4rem;
+            width: 100%;
+            max-width: 16rem;
+        }
+        
+        .button-primary {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+        }
+        
+        .button-primary:hover {
+            background-color: #8A7289;
+        }
+        
+        .button-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .button-outline:hover {
+            background-color: #F0E6F0;
+        }
+        
+        /* Icon button */
+        .icon-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 2.25rem;
+            height: 2.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+        }
+        
+        .icon-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Dialog styles */
+        .dialog-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            display: none;
+        }
+        
+        .dialog {
+            background-color: white;
+            border-radius: var(--radius);
+            max-width: 28rem;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .dialog-header {
+            padding: 1.5rem 1.5rem 0.5rem;
+        }
+        
+        .dialog-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+        
+        .dialog-description {
+            color: #6B7280;
+            font-size: 0.875rem;
+        }
+        
+        .dialog-content {
+            padding: 1rem 1.5rem 1.5rem;
+        }
+        
+        .dialog-section {
+            margin-bottom: 1rem;
+        }
+        
+        .dialog-section-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .dialog-list {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .dialog-list-item {
+            margin-bottom: 0.25rem;
+        }
+        
+        .dialog-ordered-list {
+            list-style-type: decimal;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .dialog-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        /* Utility */
+        .spacer {
+            width: 2.25rem;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .text-sm {
+            font-size: 0.875rem;
+        }
+        
+        .text-gray {
+            color: #6B7280;
+        }
+        
+        .mt-4 {
+            margin-top: 1rem;
+        }
+        
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .inline-icon {
+            display: inline-block;
+            vertical-align: middle;
+            width: 1rem;
+            height: 1rem;
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 16rem;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #4B5563;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Pages */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Latihan and Bermain pages */
+        .game-card {
+            width: 100%;
+            max-width: 48rem;
+        }
+        
+        .game-content {
+            padding: 1.5rem;
+            background-color: var(--background);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: flex;
+            align-items: center;
+            font-size: 1.125rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #4B5563;
+        }
+        
+        .form-input {
+            width: 100%;
+            height: 4rem;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            background-color: white;
+        }
+        
+        .form-input::placeholder {
+            color: #9CA3AF;
+        }
+        
+        /* Wheels container */
+        .wheels-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .wheels-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+        }
+        
+        /* Wheel styles */
+        .wheel-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .wheel-label {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .wheel {
+            position: relative;
+            width: 16rem;
+            height: 16rem;
+            margin-bottom: 1rem;
+        }
+        
+        .wheel-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .wheel-center {
+            position: absolute;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 30;
+        }
+        
+        .wheel-center-text {
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+        
+        .wheel-item {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            text-align: center;
+            max-width: 40px;
+            transition: all 0.3s ease;
+        }
+        
+        .wheel-item.selected {
+            color: #CA8A04;
+            font-weight: bold;
+        }
+        
+        .wheel-item-content {
+            transform: scale(0.75);
+        }
+        
+        .wheel-item-value {
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+        
+        .wheel-item-subvalue {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .wheel-selected-value {
+            font-weight: bold;
+            font-size: 1.125rem;
+            color: #4B5563;
+            margin-top: 1rem;
+        }
+        
+        /* Result section */
+        .result-section {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .result-label {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #4B5563;
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-display {
+            border: 2px solid var(--border);
+            padding: 1rem;
+            border-radius: var(--radius);
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            min-height: 4rem;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Alert styles */
+        .alert {
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        
+        .alert-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .alert-icon {
+            margin-right: 0.5rem;
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        
+        .alert-success {
+            background-color: #ECFDF5;
+            display: flex;
+        }
+        
+        .alert-error {
+            background-color: #FEF2F2;
+            display: flex;
+        }
+        
+        /* Game mode specific */
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .game-stats {
+            font-size: 1.125rem;
+            font-weight: bold;
+        }
+        
+        .game-problem {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .game-problem-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .game-problem-description {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+        
+        .game-over {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1.5rem;
+        }
+        
+        .game-over-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .game-over-score {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+        
+        .game-over-text {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Home Page -->
+    <div id="homePage" class="page active">
+        <div class="card">
+            <div class="card-header">
+                <div class="spacer"></div>
+                <div class="card-title">
+                    PAKABI
+                    <div class="card-subtitle">(Papan Akar Kubik)</div>
+                </div>
+                <button id="homeHelpButton" class="icon-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="card-content">
+                <h2 class="section-title">Pilih Mode Permainan</h2>
+                
+                <div class="button-group">
+                    <button id="bermainButton" class="button button-primary">Bermain</button>
+                    <button id="latihanButton" class="button button-outline">Latihan</button>
+                </div>
+                
+                <div class="text-center text-sm text-gray mt-4">
+                    <p class="mb-2">Media pembelajaran interaktif untuk mencari akar pangkat tiga</p>
+                    <p>
+                        Klik ikon 
+                        <svg class="inline-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        untuk petunjuk penggunaan
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Latihan Page -->
+    <div id="latihanPage" class="page">
+        <div class="card game-card">
+            <div class="card-header">
+                <button id="latihanBackButton" class="icon-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </button>
+                <div class="card-title">
+                    PAKABI
+                    <div class="card-subtitle">(Papan Akar Kubik)</div>
+                </div>
+                <button id="latihanHelpButton" class="icon-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="game-content">
+                <div class="form-group">
+                    <label for="latihanNumber" class="form-label">
+                        <span style="font-size: 1.5rem; margin-right: 0.5rem;">∛</span>
+                        <span>Masukkan Angka:</span>
+                    </label>
+                    <input id="latihanNumber" type="number" placeholder="Masukkan angka untuk dicari akar pangkat 3" class="form-input">
+                </div>
+
+                <div class="wheels-container">
+                    <div class="wheel-wrapper">
+                        <div class="wheel-label">Puluhan</div>
+                        <div id="latihanTensWheel" class="wheel">
+                            <div class="wheel-circle">
+                                <div class="wheel-center">
+                                    <div class="wheel-center-text">Pilih</div>
+                                </div>
+                                <!-- Wheel items will be added by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="wheel-selected-value">
+                            Nilai: <span id="latihanSelectedTens">-</span>
+                        </div>
+                    </div>
+
+                    <div class="wheel-wrapper">
+                        <div class="wheel-label">Satuan</div>
+                        <div id="latihanUnitsWheel" class="wheel">
+                            <div class="wheel-circle">
+                                <div class="wheel-center">
+                                    <div class="wheel-center-text">Pilih</div>
+                                </div>
+                                <!-- Wheel items will be added by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="wheel-selected-value">
+                            Nilai: <span id="latihanSelectedUnits">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <div class="result-label">Hasil</div>
+                    <div id="latihanResult" class="result-display"></div>
+                </div>
+
+                <div id="latihanAlert" class="alert">
+                    <div class="alert-content">
+                        <svg id="latihanAlertSuccessIcon" class="alert-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <svg id="latihanAlertErrorIcon" class="alert-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                        <span id="latihanAlertMessage"></span>
+                    </div>
+                </div>
+
+                <div class="button-container" style="display: flex; justify-content: center; gap: 1rem;">
+                    <button id="latihanCheckButton" class="button button-primary" style="max-width: 12rem;">Periksa Jawaban</button>
+                    <button id="latihanResetButton" class="button button-outline" style="max-width: 8rem;">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bermain Page -->
+    <div id="bermainPage" class="page">
+        <div class="card game-card">
+            <div class="card-header">
+                <button id="bermainBackButton" class="icon-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                </button>
+                <div class="card-title">
+                    PAKABI
+                    <div class="card-subtitle">(Papan Akar Kubik)</div>
+                </div>
+                <button id="bermainHelpButton" class="icon-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </button>
+            </div>
+            <div id="gamePlayContent" class="game-content">
+                <div class="game-header">
+                    <div id="questionCounter" class="game-stats">Soal: 1/10</div>
+                    <div id="scoreCounter" class="game-stats">Skor: 0</div>
+                </div>
+                
+                <div class="game-problem">
+                    <div id="problemNumber" class="game-problem-text">
+                        <span style="font-size: 1.5rem; margin-right: 0.5rem;">∛</span>
+                        <span>27</span>
+                    </div>
+                    <div class="game-problem-description">Carilah akar pangkat tiga dari angka di atas</div>
+                </div>
+
+                <div class="wheels-container">
+                    <div class="wheel-wrapper">
+                        <div class="wheel-label">Puluhan</div>
+                        <div id="bermainTensWheel" class="wheel">
+                            <div class="wheel-circle">
+                                <div class="wheel-center">
+                                    <div class="wheel-center-text">Pilih</div>
+                                </div>
+                                <!-- Wheel items will be added by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="wheel-selected-value">
+                            Nilai: <span id="bermainSelectedTens">-</span>
+                        </div>
+                    </div>
+
+                    <div class="wheel-wrapper">
+                        <div class="wheel-label">Satuan</div>
+                        <div id="bermainUnitsWheel" class="wheel">
+                            <div class="wheel-circle">
+                                <div class="wheel-center">
+                                    <div class="wheel-center-text">Pilih</div>
+                                </div>
+                                <!-- Wheel items will be added by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="wheel-selected-value">
+                            Nilai: <span id="bermainSelectedUnits">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <div class="result-label">Hasil</div>
+                    <div id="bermainResult" class="result-display"></div>
+                </div>
+
+                <div id="bermainAlert" class="alert">
+                    <div class="alert-content">
+                        <svg id="bermainAlertSuccessIcon" class="alert-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <svg id="bermainAlertErrorIcon" class="alert-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                        <span id="bermainAlertMessage"></span>
+                    </div>
+                </div>
+
+                <div class="button-container" style="display: flex; justify-content: center;">
+                    <button id="bermainActionButton" class="button button-primary" style="max-width: 12rem;">Periksa Jawaban</button>
+                </div>
+            </div>
+            
+            <div id="gameOverContent" class="game-content" style="display: none;">
+                <div class="game-over">
+                    <h2 class="game-over-title">Permainan Selesai!</h2>
+                    <div id="finalScore" class="game-over-score">0 / 10</div>
+                    <p class="game-over-text">Skor akhir Anda</p>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <button id="playAgainButton" class="button button-primary" style="max-width: 10rem;">Main Lagi</button>
+                        <button id="backToMenuButton" class="button button-outline" style="max-width: 12rem;">Kembali ke Menu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Help Dialog -->
+    <div id="helpDialog" class="dialog-backdrop">
+        <div class="dialog">
+            <div class="dialog-header">
+                <h3 class="dialog-title">Petunjuk Penggunaan PAKABI</h3>
+                <p class="dialog-description">Pilihan Mode Pembelajaran</p>
+                <button id="closeDialog" class="dialog-close">&times;</button>
+            </div>
+            <div class="dialog-content">
+                <div class="dialog-section">
+                    <h4 class="dialog-section-title">Mode Bermain</h4>
+                    <p>
+                        Mode permainan dengan 10 soal acak untuk menguji kemampuan mencari akar pangkat tiga. Anda akan
+                        mendapatkan skor berdasarkan jawaban yang benar.
+                    </p>
+                    <ul class="dialog-list">
+                        <li class="dialog-list-item">Terdapat 10 soal yang harus diselesaikan</li>
+                        <li class="dialog-list-item">Skor dihitung berdasarkan jawaban benar</li>
+                        <li class="dialog-list-item">Soal berupa angka hasil pangkat tiga</li>
+                    </ul>
+                </div>
+
+                <div class="dialog-section">
+                    <h4 class="dialog-section-title">Mode Latihan</h4>
+                    <p>
+                        Mode latihan bebas untuk berlatih mencari akar pangkat tiga dari angka yang Anda masukkan sendiri.
+                        Tidak ada batasan jumlah soal.
+                    </p>
+                    <ul class="dialog-list">
+                        <li class="dialog-list-item">Masukkan angka yang ingin dicari akar pangkat tiganya</li>
+                        <li class="dialog-list-item">Gunakan roda untuk menentukan jawaban</li>
+                        <li class="dialog-list-item">Periksa jawaban dan ulangi sesuai kebutuhan</li>
+                    </ul>
+                </div>
+
+                <div class="dialog-section">
+                    <h4 class="dialog-section-title">Cara Menggunakan Roda PAKABI:</h4>
+                    <ol class="dialog-ordered-list">
+                        <li class="dialog-list-item">Pisahkan 3 angka terakhir dari soal</li>
+                        <li class="dialog-list-item">Cari hasil kubik yang paling mendekati angka didepan setelah dipisah di lingkaran puluhan</li>
+                        <li class="dialog-list-item">Angka tersebut akan otomatis tertulis pada papan hasil sebagai puluhan</li>
+                        <li class="dialog-list-item">Cari hasil satuan di lingkaran satuan yang angkanya sama dengan angka terakhir pada soal</li>
+                        <li class="dialog-list-item">Angka tersebut akan otomatis tertulis pada papan hasil sebagai satuan</li>
+                        <li class="dialog-list-item">Hasil akar kubiknya dapat dilihat pada kolom hasil</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Latihan Help Dialog -->
+    <div id="latihanHelpDialog" class="dialog-backdrop">
+        <div class="dialog">
+            <div class="dialog-header">
+                <h3 class="dialog-title">Cara Menggunakan PAKABI</h3>
+                <p class="dialog-description">Panduan mencari akar pangkat tiga</p>
+                <button id="closeLatihanDialog" class="dialog-close">&times;</button>
+            </div>
+            <div class="dialog-content">
+                <div class="dialog-section">
+                    <h4 class="dialog-section-title">Langkah 1: Masukkan Angka</h4>
+                    <p>Masukkan angka yang ingin dicari akar pangkat tiganya pada kotak input di bagian atas.</p>
+                </div>
+
+                <div class="dialog-section">
+                    <h4 class="dialog-section-title">Langkah 2: Tentukan Digit Puluhan</h4>
+                    <p>
+                        Cari hasil kubik yang paling mendekati angka didepan setelah dipisah di lingkaran puluhan. Klik pada angka yang sesuai.
+                    </p>
+                </div>
+
+                <div class="dialog-section">
+                    <h4 class="dialog-section-title">Langkah 3: Tentukan Digit Satuan</h4>
+                    <p>
+                        Perhatikan digit terakhir dari angka yang ingin dicari akar pangkat tiganya. Pilih angka yang sesuai
+                        dengan digit terakhir tersebut pada roda "Satuan".
+                    </p>
+                </div>
+
+                <div class="dialog-section">
+                    <h4 class="dialog-section-title">Langkah 4: Periksa Jawaban</h4>
+                    <p>
+                        Gabungkan digit puluhan dan satuan untuk mendapatkan hasil akar pangkat tiga. Klik "Periksa Jawaban"
+                        untuk melihat apakah jawaban Anda benar.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bermain Help Dialog -->
+    <div id="bermainHelpDialog" class="dialog-backdrop">
+        <div class="dialog">
+            <div class="dialog-header">
+                <h3 class="dialog-title">Cara Menggunakan PAKABI</h3>
+                <p class="dialog-description">Panduan mencari akar pangkat tiga</p>
+                <button id="closeBermainDialog" class="dialog-close">&times;</button>
+            </div>
+            <div class="dialog-content">
+                <div class="dialog-section">
+                    <h4 class="dialog-section-title">Langkah 1: Pisahkan 3 Angka Terakhir</h4>
+                    <p>Pisahkan 3 angka terakhir dari soal yang ingin dicari akar pangkat tiganya.</p>
+                </div>
+
+                <div class="dialog-section">
+                    <h4 class="dialog-section-title">Langkah 2: Tentukan Digit Puluhan</h4>
+                    <p>
+                        Cari hasil kubik yang paling mendekati angka didepan setelah dipisah di lingkaran puluhan. Klik pada angka yang sesuai.
+                    </p>
+                </div>
+
+                <div class="dialog-section">
+                    <h4 class="dialog-section-title">Langkah 3: Tentukan Digit Satuan</h4>
+                    <p>
+                        Perhatikan digit terakhir dari angka yang ingin dicari akar pangkat tiganya. Pilih angka yang sesuai
+                        dengan digit terakhir tersebut pada roda "Satuan".
+                    </p>
+                </div>
+
+                <div class="dialog-section">
+                    <h4 class="dialog-section-title">Langkah 4: Periksa Jawaban</h4>
+                    <p>
+                        Gabungkan digit puluhan dan satuan untuk mendapatkan hasil akar pangkat tiga. Klik "Periksa Jawaban"
+                        untuk melihat apakah jawaban Anda benar.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for the wheels
+        const tensData = [
+            { value: 1, cubeValue: 1 },
+            { value: 2, cubeValue: 8 },
+            { value: 3, cubeValue: 27 },
+            { value: 4, cubeValue: 64 },
+            { value: 5, cubeValue: 125 },
+            { value: 6, cubeValue: 216 },
+            { value: 7, cubeValue: 343 },
+            { value: 8, cubeValue: 512 },
+            { value: 9, cubeValue: 729 },
+            { value: 10, cubeValue: 1000 }
+        ];
+
+        const unitsData = [
+            { value: 1, lastDigit: 1 }, // Cube roots ending in 1
+            { value: 2, lastDigit: 8 }, // Cube roots ending in 8
+            { value: 3, lastDigit: 7 }, // Cube roots ending in 7
+            { value: 4, lastDigit: 4 }, // Cube roots ending in 4
+            { value: 5, lastDigit: 5 }, // Cube roots ending in 5
+            { value: 6, lastDigit: 6 }, // Cube roots ending in 6
+            { value: 7, lastDigit: 3 }, // Cube roots ending in 3
+            { value: 8, lastDigit: 2 }, // Cube roots ending in 2
+            { value: 9, lastDigit: 9 }, // Cube roots ending in 9
+            { value: 10, lastDigit: 0 } // Cube roots ending in 0
+        ];
+
+        // State variables for Latihan mode
+        let latihanSelectedTens = null;
+        let latihanSelectedUnits = null;
+
+        // State variables for Bermain mode
+        let bermainSelectedTens = null;
+        let bermainSelectedUnits = null;
+        let currentProblemIndex = 0;
+        let score = 0;
+        let questionsAnswered = 0;
+        let gameProblems = [];
+        let isCheckingAnswer = true;
+
+        // DOM Elements - Navigation
+        const homePage = document.getElementById('homePage');
+        const latihanPage = document.getElementById('latihanPage');
+        const bermainPage = document.getElementById('bermainPage');
+        const bermainButton = document.getElementById('bermainButton');
+        const latihanButton = document.getElementById('latihanButton');
+        const latihanBackButton = document.getElementById('latihanBackButton');
+        const bermainBackButton = document.getElementById('bermainBackButton');
+
+        // DOM Elements - Help Dialogs
+        const helpDialog = document.getElementById('helpDialog');
+        const latihanHelpDialog = document.getElementById('latihanHelpDialog');
+        const bermainHelpDialog = document.getElementById('bermainHelpDialog');
+        const homeHelpButton = document.getElementById('homeHelpButton');
+        const latihanHelpButton = document.getElementById('latihanHelpButton');
+        const bermainHelpButton = document.getElementById('bermainHelpButton');
+        const closeDialog = document.getElementById('closeDialog');
+        const closeLatihanDialog = document.getElementById('closeLatihanDialog');
+        const closeBermainDialog = document.getElementById('closeBermainDialog');
+
+        // DOM Elements - Latihan Mode
+        const latihanNumber = document.getElementById('latihanNumber');
+        const latihanTensWheel = document.getElementById('latihanTensWheel');
+        const latihanUnitsWheel = document.getElementById('latihanUnitsWheel');
+        const latihanSelectedTensElement = document.getElementById('latihanSelectedTens');
+        const latihanSelectedUnitsElement = document.getElementById('latihanSelectedUnits');
+        const latihanResult = document.getElementById('latihanResult');
+        const latihanAlert = document.getElementById('latihanAlert');
+        const latihanAlertSuccessIcon = document.getElementById('latihanAlertSuccessIcon');
+        const latihanAlertErrorIcon = document.getElementById('latihanAlertErrorIcon');
+        const latihanAlertMessage = document.getElementById('latihanAlertMessage');
+        const latihanCheckButton = document.getElementById('latihanCheckButton');
+        const latihanResetButton = document.getElementById('latihanResetButton');
+
+        // DOM Elements - Bermain Mode
+        const bermainTensWheel = document.getElementById('bermainTensWheel');
+        const bermainUnitsWheel = document.getElementById('bermainUnitsWheel');
+        const bermainSelectedTensElement = document.getElementById('bermainSelectedTens');
+        const bermainSelectedUnitsElement = document.getElementById('bermainSelectedUnits');
+        const bermainResult = document.getElementById('bermainResult');
+        const bermainAlert = document.getElementById('bermainAlert');
+        const bermainAlertSuccessIcon = document.getElementById('bermainAlertSuccessIcon');
+        const bermainAlertErrorIcon = document.getElementById('bermainAlertErrorIcon');
+        const bermainAlertMessage = document.getElementById('bermainAlertMessage');
+        const bermainActionButton = document.getElementById('bermainActionButton');
+        const questionCounter = document.getElementById('questionCounter');
+        const scoreCounter = document.getElementById('scoreCounter');
+        const problemNumber = document.getElementById('problemNumber');
+        const gamePlayContent = document.getElementById('gamePlayContent');
+        const gameOverContent = document.getElementById('gameOverContent');
+        const finalScore = document.getElementById('finalScore');
+        const playAgainButton = document.getElementById('playAgainButton');
+        const backToMenuButton = document.getElementById('backToMenuButton');
+
+        // Navigation functions
+        function showPage(pageId) {
+            // Hide all pages
+            homePage.classList.remove('active');
+            latihanPage.classList.remove('active');
+            bermainPage.classList.remove('active');
+            
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Reset game state if needed
+            if (pageId === 'bermainPage') {
+                initializeGameMode();
+            }
+        }
+
+        // Initialize wheels
+        function initializeWheel(wheelElement, data, selectedValueElement, onSelect) {
+            const wheelCircle = wheelElement.querySelector('.wheel-circle');
+            
+            // Clear existing items
+            const existingItems = wheelCircle.querySelectorAll('.wheel-item');
+            existingItems.forEach(item => item.remove());
+            
+            // Calculate positions for items in a circle
+            const radius = 38; // Percentage from center
+            const angleStep = 360 / data.length;
+            
+            // Create and position items
+            data.forEach((item, index) => {
+                const angle = index * angleStep;
+                
+                // Calculate position on the circle
+                const x = 50 + radius * Math.cos((angle - 90) * (Math.PI / 180));
+                const y = 50 + radius * Math.sin((angle - 90) * (Math.PI / 180));
+                
+                // Create item element
+                const itemElement = document.createElement('div');
+                itemElement.className = 'wheel-item';
+                itemElement.style.left = `${x}%`;
+                itemElement.style.top = `${y}%`;
+                
+                // Create content
+                const content = document.createElement('div');
+                content.className = 'wheel-item-content';
+                
+                // Value
+                const valueElement = document.createElement('div');
+                valueElement.className = 'wheel-item-value';
+                valueElement.textContent = item.value;
+                content.appendChild(valueElement);
+                
+                // Subvalue (cube value or last digit)
+                const subvalueElement = document.createElement('div');
+                subvalueElement.className = 'wheel-item-subvalue';
+                
+                if ('cubeValue' in item) {
+                    subvalueElement.textContent = `${item.value}³=${item.cubeValue}`;
+                } else if ('lastDigit' in item) {
+                    subvalueElement.textContent = `→${item.lastDigit}`;
+                }
+                
+                content.appendChild(subvalueElement);
+                itemElement.appendChild(content);
+                
+                // Add click event
+                itemElement.addEventListener('click', () => {
+                    // Remove selected class from all items
+                    wheelCircle.querySelectorAll('.wheel-item').forEach(el => {
+                        el.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to clicked item
+                    itemElement.classList.add('selected');
+                    
+                    // Update selected value
+                    onSelect(item.value);
+                    selectedValueElement.textContent = item.value;
+                    
+                    // Update result display
+                    if (wheelElement.id.includes('latihan')) {
+                        updateLatihanResult();
+                    } else if (wheelElement.id.includes('bermain')) {
+                        updateBermainResult();
+                    }
+                });
+                
+                wheelCircle.appendChild(itemElement);
+            });
+        }
+
+        // Update result display for Latihan mode
+        function updateLatihanResult() {
+            if (latihanSelectedTens !== null && latihanSelectedUnits !== null) {
+                // Handle the special case for units value 10 (which represents 0)
+                const units = latihanSelectedUnits === 10 ? 0 : latihanSelectedUnits;
+                latihanResult.textContent = `${latihanSelectedTens}${units}`;
+            } else {
+                latihanResult.textContent = '';
+            }
+        }
+
+        // Update result display for Bermain mode
+        function updateBermainResult() {
+            if (bermainSelectedTens !== null && bermainSelectedUnits !== null) {
+                // Handle the special case for units value 10 (which represents 0)
+                const units = bermainSelectedUnits === 10 ? 0 : bermainSelectedUnits;
+                bermainResult.textContent = `${bermainSelectedTens}${units}`;
+            } else {
+                bermainResult.textContent = '';
+            }
+        }
+
+        // Check answer for Latihan mode
+        function checkLatihanAnswer() {
+            const number = latihanNumber.value.trim();
+            
+            if (!number || latihanSelectedTens === null || latihanSelectedUnits === null) {
+                showLatihanAlert('error', 'Silakan masukkan angka dan pilih nilai pada kedua roda.');
+                return;
+            }
+            
+            const num = parseInt(number);
+            const exactCubeRoot = Math.cbrt(num);
+            const roundedCubeRoot = Math.round(exactCubeRoot * 100) / 100;
+            
+            // Adjust calculation for units value 10 (which represents 0)
+            const userGuess = latihanSelectedTens * 10 + (latihanSelectedUnits === 10 ? 0 : latihanSelectedUnits);
+            
+            // Check if the user's answer is close to the actual cube root
+            if (Math.abs(userGuess - exactCubeRoot) < 0.1) {
+                showLatihanAlert('success', `Benar! Akar pangkat 3 dari ${num} adalah ${roundedCubeRoot}.`);
+            } else {
+                showLatihanAlert('error', `Salah. Akar pangkat 3 dari ${num} adalah ${roundedCubeRoot}, bukan ${userGuess}.`);
+            }
+        }
+
+        // Show alert for Latihan mode
+        function showLatihanAlert(type, message) {
+            latihanAlert.className = 'alert';
+            latihanAlert.classList.add(type === 'success' ? 'alert-success' : 'alert-error');
+            
+            latihanAlertSuccessIcon.style.display = type === 'success' ? 'block' : 'none';
+            latihanAlertErrorIcon.style.display = type === 'error' ? 'block' : 'none';
+            
+            latihanAlertMessage.textContent = message;
+        }
+
+        // Reset form for Latihan mode
+        function resetLatihanForm() {
+            latihanNumber.value = '';
+            latihanSelectedTens = null;
+            latihanSelectedUnits = null;
+            latihanSelectedTensElement.textContent = '-';
+            latihanSelectedUnitsElement.textContent = '-';
+            latihanResult.textContent = '';
+            latihanAlert.className = 'alert';
+            
+            // Remove selected class from all wheel items
+            latihanTensWheel.querySelectorAll('.wheel-item').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            latihanUnitsWheel.querySelectorAll('.wheel-item').forEach(el => {
+                el.classList.remove('selected');
+            });
+        }
+
+        // Generate cube problems for Bermain mode
+        function generateCubeProblems() {
+            const problems = [];
+            for (let i = 11; i <= 99; i++) {
+                problems.push({
+                    number: i * i * i,
+                    answer: i
+                });
+            }
+            // Shuffle the problems
+            return problems.sort(() => Math.random() - 0.5);
+        }
+
+        // Initialize game mode
+        function initializeGameMode() {
+            gameProblems = generateCubeProblems();
+            currentProblemIndex = 0;
+            score = 0;
+            questionsAnswered = 0;
+            isCheckingAnswer = true;
+            
+            // Reset UI
+            bermainSelectedTens = null;
+            bermainSelectedUnits = null;
+            bermainSelectedTensElement.textContent = '-';
+            bermainSelectedUnitsElement.textContent = '-';
+            bermainResult.textContent = '';
+            bermainAlert.className = 'alert';
+            
+            // Update counters
+            questionCounter.textContent = `Soal: 1/10`;
+            scoreCounter.textContent = `Skor: 0`;
+            
+            // Set first problem
+            problemNumber.innerHTML = `<span style="font-size: 1.5rem; margin-right: 0.5rem;">∛</span><span>${gameProblems[0].number}</span>`;
+            
+            // Show game play content, hide game over
+            gamePlayContent.style.display = 'block';
+            gameOverContent.style.display = 'none';
+            
+            // Reset button text
+            bermainActionButton.textContent = 'Periksa Jawaban';
+            
+            // Remove selected class from all wheel items
+            bermainTensWheel.querySelectorAll('.wheel-item').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            bermainUnitsWheel.querySelectorAll('.wheel-item').forEach(el => {
+                el.classList.remove('selected');
+            });
+        }
+
+        // Handle Bermain action button click
+        function handleBermainAction() {
+            if (isCheckingAnswer) {
+                checkBermainAnswer();
+            } else {
+                nextQuestion();
+            }
+        }
+
+        // Check answer for Bermain mode
+        function checkBermainAnswer() {
+            if (bermainSelectedTens === null || bermainSelectedUnits === null) {
+                showBermainAlert('error', 'Silakan pilih nilai pada kedua roda.');
+                return;
+            }
+            
+            const currentProblem = gameProblems[currentProblemIndex];
+            
+            // Adjust calculation for units value 10 (which represents 0)
+            const userGuess = bermainSelectedTens * 10 + (bermainSelectedUnits === 10 ? 0 : bermainSelectedUnits);
+            const correctAnswer = currentProblem.answer;
+            
+            if (userGuess === correctAnswer) {
+                showBermainAlert('success', `Benar! Akar pangkat 3 dari ${currentProblem.number} adalah ${correctAnswer}.`);
+                score++;
+                scoreCounter.textContent = `Skor: ${score}`;
+            } else {
+                showBermainAlert('error', `Salah. Akar pangkat 3 dari ${currentProblem.number} adalah ${correctAnswer}, bukan ${userGuess}.`);
+            }
+            
+            questionsAnswered++;
+            
+            // Change button text
+            bermainActionButton.textContent = 'Soal Berikutnya';
+            isCheckingAnswer = false;
+            
+            // Check if game is over (10 questions)
+            if (questionsAnswered >= 10) {
+                endGame();
+            }
+        }
+
+        // Show alert for Bermain mode
+        function showBermainAlert(type, message) {
+            bermainAlert.className = 'alert';
+            bermainAlert.classList.add(type === 'success' ? 'alert-success' : 'alert-error');
+            
+            bermainAlertSuccessIcon.style.display = type === 'success' ? 'block' : 'none';
+            bermainAlertErrorIcon.style.display = type === 'error' ? 'block' : 'none';
+            
+            bermainAlertMessage.textContent = message;
+        }
+
+        // Move to next question
+        function nextQuestion() {
+            bermainAlert.className = 'alert';
+            bermainSelectedTens = null;
+            bermainSelectedUnits = null;
+            bermainSelectedTensElement.textContent = '-';
+            bermainSelectedUnitsElement.textContent = '-';
+            bermainResult.textContent = '';
+            
+            // Remove selected class from all wheel items
+            bermainTensWheel.querySelectorAll('.wheel-item').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            bermainUnitsWheel.querySelectorAll('.wheel-item').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Move to next problem
+            currentProblemIndex++;
+            if (currentProblemIndex >= gameProblems.length) {
+                currentProblemIndex = 0;
+            }
+            
+            // Update UI
+            questionCounter.textContent = `Soal: ${questionsAnswered + 1}/10`;
+            problemNumber.innerHTML = `<span style="font-size: 1.5rem; margin-right: 0.5rem;">∛</span><span>${gameProblems[currentProblemIndex].number}</span>`;
+            
+            // Reset button text
+            bermainActionButton.textContent = 'Periksa Jawaban';
+            isCheckingAnswer = true;
+        }
+
+        // End the game
+        function endGame() {
+            gamePlayContent.style.display = 'none';
+            gameOverContent.style.display = 'block';
+            finalScore.textContent = `${score} / 10`;
+        }
+
+        // Initialize the application
+        function initialize() {
+            // Initialize wheels for Latihan mode
+            initializeWheel(latihanTensWheel, tensData, latihanSelectedTensElement, (value) => {
+                latihanSelectedTens = value;
+            });
+            
+            initializeWheel(latihanUnitsWheel, unitsData, latihanSelectedUnitsElement, (value) => {
+                latihanSelectedUnits = value;
+            });
+            
+            // Initialize wheels for Bermain mode
+            initializeWheel(bermainTensWheel, tensData, bermainSelectedTensElement, (value) => {
+                bermainSelectedTens = value;
+            });
+            
+            initializeWheel(bermainUnitsWheel, unitsData, bermainSelectedUnitsElement, (value) => {
+                bermainSelectedUnits = value;
+            });
+            
+            // Add navigation event listeners
+            bermainButton.addEventListener('click', () => showPage('bermainPage'));
+            latihanButton.addEventListener('click', () => showPage('latihanPage'));
+            latihanBackButton.addEventListener('click', () => showPage('homePage'));
+            bermainBackButton.addEventListener('click', () => showPage('homePage'));
+            
+            // Add help dialog event listeners
+            homeHelpButton.addEventListener('click', () => {
+                helpDialog.style.display = 'flex';
+            });
+            
+            latihanHelpButton.addEventListener('click', () => {
+                latihanHelpDialog.style.display = 'flex';
+            });
+            
+            bermainHelpButton.addEventListener('click', () => {
+                bermainHelpDialog.style.display = 'flex';
+            });
+            
+            closeDialog.addEventListener('click', () => {
+                helpDialog.style.display = 'none';
+            });
+            
+            closeLatihanDialog.addEventListener('click', () => {
+                latihanHelpDialog.style.display = 'none';
+            });
+            
+            closeBermainDialog.addEventListener('click', () => {
+                bermainHelpDialog.style.display = 'none';
+            });
+            
+            // Close dialogs when clicking outside
+            helpDialog.addEventListener('click', (e) => {
+                if (e.target === helpDialog) {
+                    helpDialog.style.display = 'none';
+                }
+            });
+            
+            latihanHelpDialog.addEventListener('click', (e) => {
+                if (e.target === latihanHelpDialog) {
+                    latihanHelpDialog.style.display = 'none';
+                }
+            });
+            
+            bermainHelpDialog.addEventListener('click', (e) => {
+                if (e.target === bermainHelpDialog) {
+                    bermainHelpDialog.style.display = 'none';
+                }
+            });
+            
+            // Add Latihan mode event listeners
+            latihanCheckButton.addEventListener('click', checkLatihanAnswer);
+            latihanResetButton.addEventListener('click', resetLatihanForm);
+            
+            // Add Bermain mode event listeners
+            bermainActionButton.addEventListener('click', handleBermainAction);
+            playAgainButton.addEventListener('click', initializeGameMode);
+            backToMenuButton.addEventListener('click', () => showPage('homePage'));
+            
+            // Initialize game mode
+            initializeGameMode();
+        }
+
+        // Start the application when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>
